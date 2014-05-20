@@ -30,7 +30,7 @@
   					<h4>Reviews</h4> 
   					<blockquote ng-src="{{product.reviews.stars}}">HTML5 explanation of reviews: static element goes here. </blockquote>
   				</div>  
-
+  				<!--should be removed after commit-->
   				<p ng-src="product.name"></p>
 
   				<form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewCtrl.addReview(product)">
@@ -44,7 +44,7 @@
 				<select ng-model="reviewCtrl.review.stars"> 
 					<option value="1">1 star</option>
 					<option value="2">2 stars</option>
-					<option value="3">3 star</option>
+					<option value="3">3 stars</option>
 					<option value="4">4 stars</option>
 				</select> 	
 				<textarea ng-model="reviewCtrl.review.body"></textarea>
