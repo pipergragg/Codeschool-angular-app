@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="gemStore">
+  <head>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+  </head>
+  <body ng-controller="StoreController as store">
+  	<ul class="list-group">
+	    <li class="list-group-item" ng-repeat="product in store.products | orderBy: 'price'">
+	    	<h3>{{product.name}}</h3> 
+		    	<em class="pull-right">{{product.price | currency}}</em>
+		    	<img ng-src="{{product.images[0].full}}"/> <!-- This may not be the best way: look into iterating the process for each img-->
+		    <button ng-show="store.product.canPurchase">Buy Gem</button>
+		    <section ng-controller="PanelController as panel"> 
+  				<ul class="nav nav-pills">
+		  			<li ng-class="{active: panel.isSelected(1) }"> <a href ng-click="panel.selectTab(1)">Description</a></li>
+		  			<li ng-class="{active: panel.isSelected(2) }"> <a href ng-click="panel.selectTab(2)">Specifications</a></li>
+		  			<li ng-class="{active: panel.isSelected(3) }"> <a href ng-click="panel.selectTab(3)">Reviews</a></li>
+  				</ul> 
+  				<div class="panel" ng-show="panel.isSelected(1)">
+  					<h4>Description</h4> 
+  					<p>{{product.description}}</p>
+  				</div> 
+  				<div class="panel" ng-show="panel.isSelected(2)">
+  					<h4>Specifications</h4> 
+  					<blockquote>This is in HTML5</blockquote>
+  				</div> 
+  				<div class="panel" ng-show="panel.isSelected(3)">
+  					<h4>Reviews</h4> 
+  					<blockquote ng-src="{{product.reviews.stars}}">HTML5 explanation of reviews: static element goes here. </blockquote>
+  				</div>  
+
+  				<p ng-src="product.name"></p>
+
+  				<form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewCtrl.addReview(product)">
+					<blockquote>
+						<p ng-src="product.name"></p>
+						<p ng-src="reviewCtrl.review.stars"></p>
+						<b>Stars:{{reviewCtrl.review.stars}}</b> 
+						{{reviewCtrl.review.body}}
+						<cite>by:{{reviewCtrl.review.author}}</cite>
+					</blockquote>
+				<select ng-model="reviewCtrl.review.stars"> 
+					<option value="1">1 star</option>
+					<option value="2">2 stars</option>
+					<option value="3">3 star</option>
+					<option value="4">4 stars</option>
+				</select> 	
+				<textarea ng-model="reviewCtrl.review.body"></textarea>
+				<label>by:</label> 
+				<input ng-model="reviewCtrl.review.author" type="email"/>
+				<input type="submit" value="submit"/>
+  				</form>
+  				
+  			</section>
+  
+		</li>
+    </ul>
+  </body>
+</html>
+
+<!-- Directives: ng- app, controller, show, hide, repeat -->
+<!-- {{data | filter:options}} --> 
